@@ -1,3 +1,5 @@
+import sys
+
 # Vehicle object, stores license plate and color
 class Vehicle:
   def __init__(self, plate, color):
@@ -20,6 +22,21 @@ class ParkingLot:
             if self.spots[i] == 'open':
                 self.spots[i] = vehicle
                 break
+            # we have gotten to the end without any open spots
             if i == (self.capacity - 1):
                 print("Sorry, parking lot is full")
                 return "Sorry, parking lot is full"
+
+    # function for vehicle leaving
+    def removeVehicle(self, spotNumber):
+        self.spots[spotNumber] = 'open'
+        print("Slot number " + str(spotNumber) + " is free")
+        return ("Slot number " + str(spotNumber) + " is free")
+
+
+if (len(sys.argv) > 1):
+    # using an input file
+    print("input file")
+else:
+    # Interactive mode
+    print("interactive")
