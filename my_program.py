@@ -33,7 +33,7 @@ class ParkingLot:
         return ("Slot number " + str(spotNumber) + " is free")
 
     # function to retrieve slot number of a specific registration
-    def getSlotNumber(self, plate):
+    def getSlotNumberWithPlate(self, plate):
         for i in range(1, self.capacity):
             if self.spots[i] != 'open':
                 if self.spots[i].plate == plate:
@@ -41,13 +41,22 @@ class ParkingLot:
         return "Not found"
 
     # function to retrieve registration number of all vehicles with specified color
-    def getRegistrationNumbersByColor(self, color):
+    def getRegistrationNumbersWithColor(self, color):
         registrationNumbers = []
         for i in range(1, self.capacity):
             if self.spots[i] != 'open':
                 if self.spots[i].color == color:
                     registrationNumbers.append(self.spots[i].plate)
         return registrationNumbers
+
+    # function to retrieve all slots with specific color
+    def getSlotsWithColor(self, color):
+        slots = []
+        for i in range(1, self.capacity):
+            if self.spots[i] != 'open':
+                if self.spots[i].color == color:
+                    slots.append(i)
+        return slots
 
 if (len(sys.argv) > 1 and sys.argv[0] == "my_program.py"):
     # using an input file
@@ -79,9 +88,13 @@ elif (sys.argv[0] == "my_program.py"):
             print("Slot No. \nRegistration No \nColour")
             for car in parkingLot1.spots:
                 if car != 'open':
-                    print(str(parkingLot1.getSlotNumber(car.plate)) +  "\n" + car.plate + "\n" + car.color)
+                    print(str(parkingLot1.getSlotNumberWithPlate(car.plate)) +  "\n" + car.plate + "\n" + car.color)
 
         if cmd[0] == 'slot_number_for_registration_number':
-            print(str(parkingLot1.getSlotNumber(cmd[1])))
+            print(str(parkingLot1.getSlotNumberWithPlate(cmd[1])))
+
+        if cmd[0] == 'registration_numbers_for_cars_with_colour':
+            print(str(parkingLot1.getRegistrationNumbersWithColor(cmd[1])))
+
         if cmd[0] == 'slot_numbers_for_cars_with_colour':
-            print(str(parkingLot1.getRegistrationNumbersByColor(cmd[1])))
+            print(str(parkingLot1.getSlotsWithColor(cmd[1])))
