@@ -40,6 +40,15 @@ class ParkingLot:
                     return i
         return "Not found"
 
+    # function to retrieve registration number of all vehicles with specified color
+    def getRegistrationNumbersByColor(self, color):
+        registrationNumbers = []
+        for i in range(1, self.capacity):
+            if self.spots[i] != 'open':
+                if self.spots[i].color == color:
+                    registrationNumbers.append(self.spots[i].plate)
+        return registrationNumbers
+
 if (len(sys.argv) > 1 and sys.argv[0] == "my_program.py"):
     # using an input file
     print("input file")
@@ -71,3 +80,8 @@ elif (sys.argv[0] == "my_program.py"):
             for car in parkingLot1.spots:
                 if car != 'open':
                     print(str(parkingLot1.getSlotNumber(car.plate)) +  "\n" + car.plate + "\n" + car.color)
+
+        if cmd[0] == 'slot_number_for_registration_number':
+            print(str(parkingLot1.getSlotNumber(cmd[1])))
+        if cmd[0] == 'slot_numbers_for_cars_with_colour':
+            print(str(parkingLot1.getRegistrationNumbersByColor(cmd[1])))
