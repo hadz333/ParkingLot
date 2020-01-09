@@ -35,8 +35,22 @@ class TestSpots(unittest.TestCase):
     def testRemoveVehicle(self):
         v1 = Vehicle("KA-01-HH-2701", "Blue")
         p1 = ParkingLot(10)
+        p1.parkVehicle(v1)
         p1.removeVehicle(1)
         self.assertEqual(p1.spots[1], 'open')
+
+    # test vehicle slot number retrieval
+    def testGetSlotNumber(self):
+        v1 = Vehicle("KA-01-HH-2701", "Blue")
+        v2 = Vehicle("KA-01-HH-1234", "White")
+        p1 = ParkingLot(5)
+        p1.parkVehicle(v1)
+        p1.parkVehicle(v2)
+        self.assertEqual(p1.getSlotNumber(v2.plate), 2)
+
+# this class will test special queries
+
+
 
 
 if __name__ == '__main__':
