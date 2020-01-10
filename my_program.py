@@ -58,43 +58,51 @@ class ParkingLot:
                     slots.append(i)
         return slots
 
+def executeCommand(cmd):
+    global parkingLot1
+    # cmd[0] is the first word in the command entered by user
+    if cmd[0] == 'create_parking_lot':
+        parkingLot1 = ParkingLot(int(cmd[1]))
+        print("Created a parking lot with " + str(cmd[1]) + " slots")
+
+    if cmd[0] == 'park':
+        vehicle = Vehicle(cmd[1], cmd[2])
+        print(parkingLot1.parkVehicle(vehicle))
+
+    if cmd[0] == 'leave':
+        print(parkingLot1.removeVehicle(cmd[1]))
+
+    if cmd[0] == 'status':
+        print("Slot No. \tRegistration No \tColour")
+        for car in parkingLot1.spots:
+            if car != 'open':
+                print(str(parkingLot1.getSlotNumberWithPlate(car.plate)) +  "\t" + car.plate + "\t" + car.color)
+
+    if cmd[0] == 'slot_number_for_registration_number':
+        print(str(parkingLot1.getSlotNumberWithPlate(cmd[1])))
+
+    if cmd[0] == 'registration_numbers_for_cars_with_colour':
+        print(str(parkingLot1.getRegistrationNumbersWithColor(cmd[1])))
+
+    if cmd[0] == 'slot_numbers_for_cars_with_colour':
+        print(str(parkingLot1.getSlotsWithColor(cmd[1])))
+
 if (len(sys.argv) > 1 and sys.argv[0] == "my_program.py"):
     # using an input file
-    print("input file")
+    inputFile = sys.argv[1] # input file
+    f = open(inputFile, "r") # read only
+    contents = f.read()
+    lines = contents.split('\n') # list of all commands (line by line)
+    for command in lines:
+        command_parsed = command.split(' ')
+        executeCommand(command_parsed)
+
 elif (sys.argv[0] == "my_program.py"):
     # Interactive mode
-    print("Your are now in the command terminal. Enter q to quit.")
+    print("Your are now in interactive mode. Presss Ctrl+C to quit.")
     while True:
         # wait for user's input
-        cmd = input()
+        line = input()
         # parse user's input into readable commands (separated by space)
-        cmd = cmd.split(' ')
-        # cmd[0] is the first word in the command entered by user
-        if cmd[0] == 'q':
-            break
-        # if first word in command entered by user is create_parking_lot
-        if cmd[0] == 'create_parking_lot':
-            parkingLot1 = ParkingLot(int(cmd[1]))
-            print("Created a parking lot with " + str(cmd[1]) + " slots")
-
-        if cmd[0] == 'park':
-            vehicle = Vehicle(cmd[1], cmd[2])
-            print(parkingLot1.parkVehicle(vehicle))
-
-        if cmd[0] == 'leave':
-            print(parkingLot1.removeVehicle(cmd[1]))
-
-        if cmd[0] == 'status':
-            print("Slot No. \nRegistration No \nColour")
-            for car in parkingLot1.spots:
-                if car != 'open':
-                    print(str(parkingLot1.getSlotNumberWithPlate(car.plate)) +  "\n" + car.plate + "\n" + car.color)
-
-        if cmd[0] == 'slot_number_for_registration_number':
-            print(str(parkingLot1.getSlotNumberWithPlate(cmd[1])))
-
-        if cmd[0] == 'registration_numbers_for_cars_with_colour':
-            print(str(parkingLot1.getRegistrationNumbersWithColor(cmd[1])))
-
-        if cmd[0] == 'slot_numbers_for_cars_with_colour':
-            print(str(parkingLot1.getSlotsWithColor(cmd[1])))
+        line = line.split(' ')
+        executeCommand(line)
