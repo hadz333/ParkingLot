@@ -10,19 +10,19 @@ class ParkingLot:
     def __init__(self, capacity):
         # spots is a list that keeps track of all parking spots
         self.spots = []
-        # capacity increased by 1 (index 0 in list is never used so we don't have to add 1 later)
+        # capacity increased by 1, index 0 in spots list is never used
+        # for consistency with actual parking spots
         self.capacity = capacity + 1
         for i in range(0, self.capacity):
             self.spots.append('open')
 
     # This function will park the vehicle passed in at the nearest stall
     def parkVehicle(self, vehicle):
-        # start from first stall and check ascending (further from entrance)
+        # start from first stall and check in ascending order (start w/ closest to entrance)
         for i in range(1, self.capacity):
             if self.spots[i] == 'open':
                 self.spots[i] = vehicle
                 return "Allocated slot number: " + str(i)
-                break
             # we have gotten to the end without any open spots
             if i == (self.capacity - 1):
                 return "Sorry, parking lot is full"
@@ -99,7 +99,7 @@ if (len(sys.argv) > 1 and sys.argv[0] == "my_program.py"):
 
 elif (sys.argv[0] == "my_program.py"):
     # Interactive mode
-    print("Your are now in interactive mode. Presss Ctrl+C to quit.")
+    print("Your are now in interactive mode. Press Ctrl+C to quit.")
     while True:
         # wait for user's input
         line = input()
