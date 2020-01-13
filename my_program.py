@@ -100,6 +100,14 @@ if (len(sys.argv) > 1 and sys.argv[0] == "my_program.py"):
 elif (sys.argv[0] == "my_program.py"):
     # Interactive mode
     print("Your are now in interactive mode. Press Ctrl+C to quit.")
+    print("Use the following commands:")
+    print("'create_parking_lot n': Creates a parking lot of size n")
+    print("'park license_plate clr': parks car with license plate license_plate and color clr")
+    print("'leave n': Car at spot n leaves parking lot")
+    print("'status': reports current status of parking lot (current cars parked)")
+    print("'registration_numbers_for_cars_with_colour clr': returns license plates of cars with color clr")
+    print("'slot_numbers_for_cars_with_colour clr': returns parking spots with cars of color clr parked there")
+    print("'slot_number_for_registration_number license_plate': returns parking spots containing cars with license plate license_plate")
     while True:
         # wait for user's input
         line = input()
